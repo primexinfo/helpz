@@ -26,3 +26,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  Route::middleware('api')->get('category/{slug1}/{slug2}', 'Front\CatalogController@subcategoryapi');
  Route::middleware('api')->get('category/{slug1}/{slug2}/{slug3}', 'Front\CatalogController@childcategoryapi');
  Route::middleware('api')->get('/item/{slug}', 'Front\CatalogController@productapi');
+
+Route::post('register', 'User\RegisterController@register');
+Route::post('register-otp', 'User\RegisterController@registerOtp');
+Route::post('resend-otp', 'User\RegisterController@resendOtp');
+Route::post('login', 'User\LoginController@login');
