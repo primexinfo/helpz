@@ -43,10 +43,6 @@ class RegisterController extends Controller
         }
         //--- Validation Section Ends
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 49c8b5fe4e847ad5bd9c96e80f7555b0433d212d
         //--- OTP Section
         $otp = mt_rand(1000, 9999);
         $phone = $request->phone;
@@ -194,11 +190,8 @@ class RegisterController extends Controller
         else{
             return response()->json('failed');
         }
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 49c8b5fe4e847ad5bd9c96e80f7555b0433d212d
 
     }
 

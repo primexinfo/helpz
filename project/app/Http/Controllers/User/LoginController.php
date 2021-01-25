@@ -48,7 +48,6 @@ class LoginController extends Controller
 //          }
 
             if(Auth::guard('web')->user()->ban == 1)
-<<<<<<< HEAD
             {
                 Auth::guard('web')->logout();
                 return response()->json(array('errors' => [ 0 => 'Your Account Has Been Banned.' ]));
@@ -57,16 +56,6 @@ class LoginController extends Controller
             // Login Via Modal
             if(!empty($request->modal))
             {
-=======
-            {
-                Auth::guard('web')->logout();
-                return response()->json(array('errors' => [ 0 => 'Your Account Has Been Banned.' ]));
-            }
-
-            // Login Via Modal
-            if(!empty($request->modal))
-            {
->>>>>>> 49c8b5fe4e847ad5bd9c96e80f7555b0433d212d
                 // Login as Vendor
                 if(!empty($request->vendor))
                 {
@@ -131,8 +120,4 @@ class LoginController extends Controller
         session(['captcha_string' => $word]);
         imagepng($image, $actual_path."assets/images/capcha_code.png");
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 49c8b5fe4e847ad5bd9c96e80f7555b0433d212d
 }
