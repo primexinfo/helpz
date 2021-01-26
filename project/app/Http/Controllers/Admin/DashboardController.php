@@ -41,6 +41,7 @@ class DashboardController extends Controller
         $pproducts = Product::orderBy('id','desc')->take(5)->get();
         $rorders = Order::orderBy('id','desc')->take(5)->get();
         $poproducts = Product::orderBy('views','desc')->take(5)->get();
+        //dd($poproducts[0]->name);
         $rusers = User::orderBy('id','desc')->take(5)->get();
         $referrals = Counter::where('type','referral')->orderBy('total_count','desc')->take(5)->get();
         $browsers = Counter::where('type','browser')->orderBy('total_count','desc')->take(5)->get();

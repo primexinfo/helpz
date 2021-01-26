@@ -266,6 +266,15 @@ Route::prefix('admin')->group(function() {
   Route::post('/campaign', 'Admin\CampaignController@store')->name('admin-campaign-store');
   Route::get('/load/dropdown/{id}', 'Admin\CampaignController@dropdown')->name('admin-campaign-dropdown-load');
 
+  Route::get('/capmaign/status/{id1}/{id2}', 'Admin\CampaignController@campaignStatus')->name('admin-campaign-status');
+
+  Route::get('/campaign/rules/datatables', 'Admin\CampaignController@datatables')->name('campaign-rules-datatables');
+  Route::get('/campaign/rules/view/{id}', 'Admin\CampaignController@campaignView')->name('campaign-rules-view');
+  Route::get('/admin/campaign/specific/offer/delete/{id1}/{id2}', 'Admin\CampaignController@adminCampaignSpecificOfferDelete')->name('admin-campaign-specific-offer-delete');
+
+  Route::post('/admin/campaign-update/{id}', 'Admin\CampaignController@update')->name('admin-campaign-update');
+  Route::get('/campaign/rules/delete/{id}', 'Admin\CampaignController@deleteCampaign')->name('campaign-rules-delete');
+
   //------------ ADMIN Campaign SECTION ENDS------------
 
   //------------ ADMIN Reward SECTION ------------

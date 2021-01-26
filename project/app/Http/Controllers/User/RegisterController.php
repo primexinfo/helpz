@@ -17,6 +17,8 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+
+
 //    	$gs = Generalsetting::findOrFail(1);
 //
 //    	if($gs->is_capcha == 1)
@@ -31,7 +33,6 @@ class RegisterController extends Controller
 
         $rules = [
             'phone'   => 'required|unique:users',
-            'email'   => 'required|email',
             'password' => 'required|confirmed'
         ];
         $validator = Validator::make(Input::all(), $rules);
