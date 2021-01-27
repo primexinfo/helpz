@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Supplier;
+use App\Models\SupplierProduct;
 use Datatables;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -84,6 +85,11 @@ class SupplierController extends Controller
         $data = Supplier::findOrFail($id);
 
         $data->delete();
+
+        $product_suppliers = SupplierProduct::where('supplier_id',$id)->get();
+        foreach ($product_suppliers as $product_supplier){
+            $product_supplier->delete();
+        }
         //--- Redirect Section
         $msg = 'Data Deleted Successfully.';
         return response()->json($msg);

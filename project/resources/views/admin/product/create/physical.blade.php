@@ -88,12 +88,12 @@
 														</div>
 													</div>
 													<div class="col-lg-7">
-															<select id="cat" name="admin-subcat-load" required="">
-																	<option value="">{{ __('Select Category') }}</option>
-						                                              @foreach($cats as $cat)
-						                                                  <option data-href="{{ route('admin-subcat-load',$cat->id) }}" value="{{ $cat->id }}">{{$cat->name}}</option>
-						                                              @endforeach
-						                                     </select>
+														<select id="cat" name="category_id" required="">
+																<option value="">{{ __('Select Category') }}</option>
+																  @foreach($cats as $cat)
+																	  <option data-href="{{ route('admin-subcat-load',$cat->id) }}" value="{{ $cat->id }}">{{$cat->name}}</option>
+																  @endforeach
+														 </select>
 													</div>
 												</div>
 
@@ -123,11 +123,27 @@
 													</div>
 												</div>
 
-												
 
+											  <div class="row" id="supplier_add">
+												  <div class="col-lg-4">
+													  <div class="left-area">
+														  <h4 class="heading">{{ __("Supplier") }}</h4>
+													  </div>
+												  </div>
+												  <div class="col-lg-7">
+													  <select id="" name="supplier_id[]" >
+														  <option value="">Select</option>
+														  @foreach($suppliers as $supplier)
+															  <option value="{{$supplier->id}}">{{$supplier->name}}</option>
+														  @endforeach
+													  </select>
+												  </div>
 
+											  </div>
 
-							                     <div class="row">
+											  <a href="javascript:;" id="supplier_add_button" class="add-more"><i class="fas fa-plus"></i>{{ __('Add More Supplier') }} </a>
+
+							                     <div class="row mt-2">
 							                        <div class="col-lg-4">
 							                          <div class="left-area">
 							                              <h4 class="heading">{{ __('Feature Image') }} *</h4>
@@ -706,6 +722,36 @@ $('.cropme').simpleCropper();
 $('#crop-image').on('click',function(){
 $('.cropme').click();
 });
+
+
+var max_fields = 15;
+x=0;
+$("#supplier_add_button").click(function(e){
+    e.preventDefault();
+    if(x<max_fields) {
+        x++;
+        $('#supplier_add').append('<div class="col-lg-4">\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t\t  <div class="left-area">\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t\t\t  <h4 class="heading"></h4>\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t\t  </div>\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t  </div>\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t  <div class="col-lg-7">\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t\t  <select id="" name="supplier_id[]" >\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t\t\t  @foreach($suppliers as $supplier)\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  <option value="{{$supplier->id}}">{{$supplier->name}}</option>\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t\t\t  @endforeach\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t\t  </select>\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t  <button class="col-lg-1 btn btn-sm btn-danger"  id="row_remove">X</button></div>');
+
+
+    }});
+
+$('#supplier_add').on("click","#row_remove", function(e){
+    e.preventDefault();
+    $(this).parent('div').remove();
+    x--;
+});
+
 </script>
 
 

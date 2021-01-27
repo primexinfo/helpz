@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Childcategory;
 use App\Models\Subcategory;
+use App\Models\Supplier;
+use App\Models\SupplierProduct;
 use Datatables;
 use Carbon\Carbon;
 use App\Models\Product;
@@ -124,24 +126,27 @@ class ProductController extends Controller
     public function createPhysical()
     {
         $cats = Category::all();
+        $suppliers = Supplier::all();
         $sign = Currency::where('is_default','=',1)->first();
-        return view('admin.product.create.physical',compact('cats','sign'));
+        return view('admin.product.create.physical',compact('cats','sign','suppliers'));
     }
 
     //*** GET Request
     public function createDigital()
     {
         $cats = Category::all();
+        $suppliers = Supplier::all();
         $sign = Currency::where('is_default','=',1)->first();
-        return view('admin.product.create.digital',compact('cats','sign'));
+        return view('admin.product.create.digital',compact('cats','sign','suppliers'));
     }
 
     //*** GET Request
     public function createLicense()
     {
         $cats = Category::all();
+        $suppliers = Supplier::all();
         $sign = Currency::where('is_default','=',1)->first();
-        return view('admin.product.create.license',compact('cats','sign'));
+        return view('admin.product.create.license',compact('cats','sign','suppliers'));
     }
 
     //*** GET Request
@@ -216,6 +221,7 @@ class ProductController extends Controller
         $data = new Product;
         $sign = Currency::where('is_default','=',1)->first();
         $input = $request->all();
+
 
         // Check File
         if ($file = $request->file('file'))
@@ -407,6 +413,16 @@ class ProductController extends Controller
                     $gallery['product_id'] = $lastid;
                     $gallery->save();
                 }
+            }
+        }
+
+        if(count($request->supplier_id) == 1 && $request->supplier_id[0] != ''){
+            $product_id = Product::latest()->first();
+            foreach ($request->supplier_id as $key => $value){
+                SupplierProduct::create([
+                    'supplier_id' => $value,
+                    'product_id' => $product_id->id,
+                ]);
             }
         }
         //logic Section Ends
@@ -841,6 +857,9 @@ class ProductController extends Controller
     {
 
         $data = Product::findOrFail($id);
+
+
+
         if($data->galleries->count() > 0)
         {
             foreach ($data->galleries as $gal) {
@@ -851,6 +870,8 @@ class ProductController extends Controller
             }
 
         }
+
+
 
         if($data->reports->count() > 0)
         {
@@ -891,6 +912,7 @@ class ProductController extends Controller
         }
 
 
+
         if (!filter_var($data->photo,FILTER_VALIDATE_URL)){
             if (file_exists(public_path().'/assets/images/products/'.$data->photo)) {
                 unlink(public_path().'/assets/images/products/'.$data->photo);
@@ -907,6 +929,11 @@ class ProductController extends Controller
             }
         }
         $data->delete();
+
+        $product_suppliers = SupplierProduct::where('product_id',$id)->get();
+        foreach ($product_suppliers as $product_supplier){
+            $product_supplier->delete();
+        }
         //--- Redirect Section     
         $msg = 'Product Deleted Successfully.';
         return response()->json($msg);      

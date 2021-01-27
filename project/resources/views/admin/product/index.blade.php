@@ -1,6 +1,7 @@
 @extends('layouts.admin') 
 
-@section('content')  
+@section('content')
+
 					<input type="hidden" id="headerdata" value="{{ __("PRODUCT") }}">
 					<div class="content-area">
 						<div class="mr-breadcrumb">
