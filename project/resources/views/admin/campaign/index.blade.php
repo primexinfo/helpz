@@ -184,7 +184,7 @@ h3{
                                             <h4 class="heading">{{ __('Specific Time Start') }}</h4>
                                         </div>
                                         <div class="col-lg-12">
-                                            <input type="time" class="input-field"  name="specific_time_start" required>
+                                            <input type="time" class="input-field"  name="specific_time_start" >
                                         </div>
                                     </div>
                                 </div>
@@ -213,7 +213,7 @@ h3{
                                             <h4 class="heading">{{ __('Specific Time End') }}</h4>
                                         </div>
                                         <div class="col-lg-12">
-                                            <input type="time" class="input-field"  name="specific_time_end" required>
+                                            <input type="time" class="input-field"  name="specific_time_end" >
                                         </div>
                                     </div>
                                 </div>

@@ -46,27 +46,27 @@
 
 {{-- ADD / EDIT MODAL --}}
 
-										<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modal1" aria-hidden="true">
-										
-										<div class="modal-dialog modal-dialog-centered" role="document">
-										<div class="modal-content">
-												<div class="submit-loader">
-														<img  src="{{asset('assets/images/'.$gs->admin_loader)}}" alt="">
-												</div>
-											<div class="modal-header">
-											<h5 class="modal-title"></h5>
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-											</div>
-											<div class="modal-body">
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modal1" aria-hidden="true">
 
-											</div>
-											<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
-											</div>
-										</div>
-										</div>
+	<div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-content">
+			<div class="submit-loader">
+					<img  src="{{asset('assets/images/'.$gs->admin_loader)}}" alt="">
+			</div>
+		<div class="modal-header">
+		<h5 class="modal-title"></h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		</div>
+		<div class="modal-body">
+
+		</div>
+		<div class="modal-footer">
+		<button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
+		</div>
+	</div>
+	</div>
 </div>
 
 {{-- ADD / EDIT MODAL ENDS --}}

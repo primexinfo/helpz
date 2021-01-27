@@ -279,6 +279,12 @@ Route::prefix('admin')->group(function() {
 
   //------------ ADMIN Reward SECTION ------------
   Route::get('/rewardPoint', 'Admin\RewardController@index')->name('admin-reward-index');
+  Route::post('/admin/reward/store', 'Admin\RewardController@store')->name('admin-reward-store');
+  Route::get('/admin/reward/status/{id1}/{id2}', 'Admin\RewardController@status')->name('admin-reward-status');
+  Route::get('/admin/reward/edit/{id}', 'Admin\RewardController@show')->name('admin-rewards-edit');
+  Route::post('/admin/reward/update/{id}', 'Admin\RewardController@update')->name('admin-reward-update');
+  Route::get('/admin/reward/delete/{id}', 'Admin\RewardController@delete')->name('admin-rewards-delete');
+
 
   //------------ ADMIN Reward SECTION ENDS------------
 
@@ -655,12 +661,21 @@ Route::get('/package/delete/{id}', 'Admin\PackageController@destroy')->name('adm
   Route::get('/vendor/create', 'Admin\VendorController@create')->name('admin-vendor-create');
   Route::post('/vendor/create', 'Admin\VendorController@store')->name('admin-vendor-store');
   Route::get('/vendor/edit/{id}', 'Admin\VendorController@show')->name('admin-vendor-show'); 
-  Route::get('/vendor/delete/{id}', 'Admin\VendorController@destroy')->name('admin-vendor-delete'); 
+  Route::get('/vendor/delete/{id}', 'Admin\VendorController@destroy')->name('admin-vendor-delete');
+  Route::get('/vendor/status/{id1}/{id2}', 'Admin\VendorController@status')->name('admin-vendor-status');
 
   //------------ Vendor SECTION ENDS------------
 
+  //------------ Supplier SECTION ------------
+  Route::get('/supplier/datatables', 'Admin\SupplierController@datatables')->name('admin-supplier-datatables');
+  Route::get('/supplier', 'Admin\SupplierController@index')->name('admin-supplier-index');
+  Route::get('/supplier/create', 'Admin\SupplierController@create')->name('admin-supplier-create');
+  Route::post('/supplier/create', 'Admin\SupplierController@store')->name('admin-supplier-store');
+  Route::get('/supplier/edit/{id}', 'Admin\SupplierController@show')->name('admin-supplier-show');
+  Route::get('/supplier/delete/{id}', 'Admin\SupplierController@destroy')->name('admin-supplier-delete');
 
-});
+
+  });
   //------------ ADMIN SUBSCRIBERS SECTION ------------
 
   Route::get('/subscribers/datatables', 'Admin\SubscriberController@datatables')->name('admin-subs-datatables'); //JSON REQUEST

@@ -122,6 +122,8 @@
                             <tr>
                                 <th>Redemption count</th>
                                 <td><input name="redemption_count" readonly class="form-control flag" type="text" value="{{$campaign->redemption_count}}"></td>
+                                <th>Campaign Created at</th>
+                                <td>{{($campaign->created_at)->format('d M, Y, g:i A')}} ({{$campaign->created_at->diffForHumans()}})</td>
                             </tr>
                             <tr>
                                 <th>Start date</th>
@@ -182,8 +184,12 @@
                                 <th>Specific time start</th>
                                 <td>
                                     @php
-                                        $specific_time_start = \Carbon\Carbon::parse($campaign->specific_time_start)->format('h:i A');
-
+                                        if($campaign->specific_time_start != ''){
+                                            $specific_time_start = \Carbon\Carbon::parse($campaign->specific_time_start)->format('h:i A');
+                                        }
+                                        else{
+                                            $specific_time_start = '--';
+                                        }
                                     @endphp
                                     <div class="row">
                                         <div class="col-md-4">{{$specific_time_start}}</div>
@@ -195,7 +201,12 @@
                                 <th>Specific time end</th>
                                 <td>
                                     @php
-                                        $specific_time_end = \Carbon\Carbon::parse($campaign->specific_time_end)->format('h:i A');
+                                        if($campaign->specific_time_end != ''){
+                                            $specific_time_end = \Carbon\Carbon::parse($campaign->specific_time_end)->format('h:i A');
+                                        }
+                                        else{
+                                            $specific_time_end = '--';
+                                        }
                                     @endphp
                                     <div class="row">
                                         <div class="col-md-4">{{$specific_time_end}}</div>
@@ -224,19 +235,22 @@
                                                 @php
                                                     $data = \App\Models\Category::find($value->specific_to)
                                                 @endphp
-                                                <tr>
+                                                @if($data)
+                                                    <tr>
                                                     <td>{{$key+1}}</td>
                                                     <td>{{$data->name}}</td>
                                                     <td>
                                                         <a class="btn btn-sm btn-danger" href="{{route('admin-campaign-specific-offer-delete',['id1' => $value->id, 'id2' => $campaign->id])}}">Delete</a>
                                                     </td>
                                                 </tr>
+                                                @endif
                                             @endforeach
                                         @elseif($campaign->available_to == 2)
                                             @foreach($campaign->campaign as $key=>$value)
                                                 @php
                                                     $data = \App\Models\Subcategory::find($value->specific_to)
                                                 @endphp
+                                                @if($data)
                                                 <tr>
                                                     <td>{{$key+1}}</td>
                                                     <td>{{$data->name}}</td>
@@ -244,12 +258,14 @@
                                                         <a class="btn btn-sm btn-danger" href="{{route('admin-campaign-specific-offer-delete',['id1' => $value->id, 'id2' => $campaign->id])}}" >Delete</a>
                                                     </td>
                                                 </tr>
+                                                @endif
                                             @endforeach
                                         @elseif($campaign->available_to == 3)
                                             @foreach($campaign->campaign as $key=>$value)
                                                 @php
                                                     $data = \App\Models\Childcategory::find($value->specific_to)
                                                 @endphp
+                                                @if($data)
                                                 <tr>
                                                     <td>{{$key+1}}</td>
                                                     <td>{{$data->name}}</td>
@@ -257,12 +273,14 @@
                                                         <a class="btn btn-sm btn-danger" href="{{route('admin-campaign-specific-offer-delete',['id1' => $value->id, 'id2' => $campaign->id])}}">Delete</a>
                                                     </td>
                                                 </tr>
+                                                @endif
                                             @endforeach
                                         @else
                                             @foreach($campaign->campaign as $key=>$value)
                                                 @php
                                                     $data = \App\Models\Product::find($value->specific_to)
                                                 @endphp
+                                                @if($data)
                                                 <tr>
                                                     <td>{{$key+1}}</td>
                                                     <td>{{$data->name}}</td>
@@ -270,6 +288,7 @@
                                                         <a class="btn btn-sm btn-danger" href="{{route('admin-campaign-specific-offer-delete',['id1' => $value->id, 'id2' => $campaign->id])}}">Delete</a>
                                                     </td>
                                                 </tr>
+                                                @endif
                                             @endforeach
                                         @endif
 

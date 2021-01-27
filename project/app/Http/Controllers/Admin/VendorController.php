@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+
 use Datatables;
 use App\Models\Admin;
 use Auth;
@@ -9,6 +10,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Validator;
+use DB;
+
 
 class VendorController extends Controller
 {
@@ -20,14 +23,22 @@ class VendorController extends Controller
     //*** JSON Request
     public function datatables()
     {
-         $datas = Admin::orderBy('id')->get();
+         $datas = Admin::where('role','Vendor')->orderBy('id')->get();
          //--- Integrating This Collection Into Datatables
          return Datatables::of($datas)
+                             ->addColumn('status', function(Admin $data) {
+                                 if($data->status == 1){
+                                     return '<a class="btn btn-sm btn-success" href="'. route('admin-vendor-status',['id1' => $data->id, 'id2' => 0]).'">Activated</a>';
+                                 }
+                                 else{
+                                     return '<a class="btn btn-sm btn-danger" href="'. route('admin-vendor-status',['id1' => $data->id, 'id2' => 1]).'">Deactivated</a>';
+                                 }
+                             })
                             ->addColumn('action', function(Admin $data) {
-                                $delete = $data->id == 1 ? '':'<a href="javascript:;" data-href="' . route('admin-staff-delete',$data->id) . '" data-toggle="modal" data-target="#confirm-delete" class="delete"><i class="fas fa-trash-alt"></i></a>';
-                                return '<div class="action-list"><a data-href="' . route('admin-staff-show',$data->id) . '" class="view details-width" data-toggle="modal" data-target="#modal1"> <i class="fas fa-eye"></i>Details</a>'.$delete.'</div>';
-                            }) 
-                            ->rawColumns(['action'])
+                                $delete = $data->id == 1 ? '':'<a href="javascript:;" data-href="' . route('admin-vendor-delete',$data->id) . '" data-toggle="modal" data-target="#confirm-delete" class="delete"><i class="fas fa-trash-alt"></i></a>';
+                                return '<div class="action-list"><a data-href="' . route('admin-vendor-show',$data->id) . '" class="view details-width" data-toggle="modal" data-target="#modal1"> <i class="fas fa-eye"></i>Details</a>'.$delete.'</div>';
+                            })
+                            ->rawColumns(['status','action'])
                             ->toJson(); //--- Returning Json Data To Client Side
     }
 
@@ -67,7 +78,7 @@ class VendorController extends Controller
             $file->move('assets/images/admins',$name);           
             $input['photo'] = $name;
         } 
-        $input['role'] = 'Staff';
+        $input['role'] = 'Vendor';
         $input['password'] = bcrypt($request['password']);
         $data->fill($input)->save();
         //--- Logic Section Ends
@@ -110,5 +121,12 @@ class VendorController extends Controller
         $msg = 'Data Deleted Successfully.';
         return response()->json($msg);      
         //--- Redirect Section Ends    
+    }
+
+    public function status($id1,$id2){
+        $data = Admin::findOrFail($id1);
+        $data->status = $id2;
+        $data->update();
+        return view('admin.vendor.index');
     }
 }

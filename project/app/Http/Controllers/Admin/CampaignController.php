@@ -14,7 +14,6 @@ use App\Models\Currency;
 use App\Models\Campaign;
 use Validator;
 use DB;
-use Illuminate\Support\Facades\Input;
 use Datatables;
 use Carbon\Carbon;
 
@@ -100,9 +99,9 @@ class CampaignController extends Controller
             'offer'      => 'required',
             'available_to'      => 'required',
             'specific_to'      => 'required',
-            'start_date'      => 'required',
+            'start_date'      => 'required|before_or_equal:end_date',
             'start_time'      => 'required',
-            'end_date'      => 'required',
+            'end_date'      => 'required|after_or_equal:start_time',
             'end_time'      => 'required',
         ), $messages);
         //--- Validation Section Ends
@@ -176,6 +175,10 @@ class CampaignController extends Controller
             'discount_type' => 'required',
             'offer'  => 'required',
             'available_to' => 'required',
+            'start_date'      => 'nullable|before_or_equal:end_date',
+            'start_time'      => 'nullable',
+            'end_date'      => 'nullable|after_or_equal:start_time',
+            'end_time'      => 'nullable',
         ), $messages);
 
         //--- Validation Section Ends

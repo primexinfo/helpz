@@ -21,7 +21,7 @@ class StaffController extends Controller
     //*** JSON Request
     public function datatables()
     {
-         $datas = Admin::orderBy('id')->get();
+         $datas = Admin::where('role','!=','Vendor')->orderBy('id')->get();
          //--- Integrating This Collection Into Datatables
          return Datatables::of($datas)
                             ->addColumn('action', function(Admin $data) {
