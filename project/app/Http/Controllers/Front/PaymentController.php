@@ -94,6 +94,8 @@ class PaymentController extends Controller
 
 public function notify(Request $request){
 
+     return response()->json(1);
+
         $paypal_data = Session::get('paypal_data');
         $paypal_items = Session::get('paypal_items');
         $success_url = action('Front\PaymentController@payreturn');

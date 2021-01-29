@@ -54,6 +54,7 @@ Route::prefix('admin')->group(function() {
   //------------ ADMIN ORDER SECTION ------------
   Route::get('/orders/datatables/{slug}', 'Admin\OrderController@datatables')->name('admin-order-datatables'); //JSON REQUEST
   Route::get('/orders', 'Admin\OrderController@index')->name('admin-order-index');
+  Route::get('/orders/manage', 'Admin\OrderController@ManageOrder')->name('admin-order-manage');
   Route::get('/order/edit/{id}', 'Admin\OrderController@edit')->name('admin-order-edit');
   Route::post('/order/update/{id}', 'Admin\OrderController@update')->name('admin-order-update');
   Route::get('/orders/pending', 'Admin\OrderController@pending')->name('admin-order-pending');
@@ -142,6 +143,7 @@ Route::prefix('admin')->group(function() {
   Route::post('/products/store', 'Admin\ProductController@store')->name('admin-prod-store');
   Route::get('/products/import', 'Admin\ProductController@import')->name('admin-prod-import');
   Route::post('/products/import-submit', 'Admin\ProductController@importSubmit')->name('admin-prod-importsubmit');
+  Route::get('/products/supplier/delete/{id1}/{id2}', 'Admin\ProductController@productSupplierDelete')->name('product-supplier-delete');
   // CREATE SECTION
 
 

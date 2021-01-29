@@ -168,6 +168,9 @@
 									<a href="{{route('admin-order-index')}}"> {{ __('All Orders') }}</a>
 								</li>
 								<li>
+									<a href="{{route('admin-order-manage')}}"> {{ __('Manage Order') }}</a>
+								</li>
+								<li>
 									<a href="{{route('admin-order-pending')}}"> {{ __('Pending Orders') }}</a>
 								</li>
 								<li>

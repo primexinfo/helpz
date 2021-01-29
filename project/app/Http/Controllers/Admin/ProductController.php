@@ -416,7 +416,7 @@ class ProductController extends Controller
             }
         }
 
-        if(count($request->supplier_id) == 1 && $request->supplier_id[0] != ''){
+        if(count($request->supplier_id) >= 1 && $request->supplier_id[0] != ''){
             $product_id = Product::latest()->first();
             foreach ($request->supplier_id as $key => $value){
                 SupplierProduct::create([
@@ -426,10 +426,10 @@ class ProductController extends Controller
             }
         }
         //logic Section Ends
-
+        return view('admin.product.index')->with('success','Product create successfully');
         //--- Redirect Section        
-        $msg = 'New Product Added Successfully.<a href="'.route('admin-prod-index').'">View Product Lists.</a>';
-        return response()->json($msg);
+        //$msg = 'New Product Added Successfully.<a href="'.route('admin-prod-index').'">View Product Lists.</a>';
+        //return response()->json($msg);
         //--- Redirect Section Ends    
     }
 
@@ -572,16 +572,17 @@ class ProductController extends Controller
     public function edit($id)
     {
         $cats = Category::all();
+        $suppliers = Supplier::all();
         $data = Product::findOrFail($id);
         $sign = Currency::where('is_default','=',1)->first();
 
 
         if($data->type == 'Digital')
-            return view('admin.product.edit.digital',compact('cats','data','sign'));
+            return view('admin.product.edit.digital',compact('cats','data','sign','suppliers'));
         elseif($data->type == 'License')
-            return view('admin.product.edit.license',compact('cats','data','sign'));
+            return view('admin.product.edit.license',compact('cats','data','sign','suppliers'));
         else
-            return view('admin.product.edit.physical',compact('cats','data','sign'));
+            return view('admin.product.edit.physical',compact('cats','data','sign','suppliers'));
     }
 
     //*** POST Request
@@ -782,11 +783,24 @@ class ProductController extends Controller
 
 
          $data->update($input);
+         //dd(count($request->supplier_id));
+        if(count($request->supplier_id) >= 1 && $request->supplier_id[0] != ''){
+            foreach ($request->supplier_id as $key => $value){
+                SupplierProduct::create([
+                    'supplier_id' => $value,
+                    'product_id' => $id,
+                ]);
+            }
+        }
+
+
+        return view('admin.product.index')->with('success','Product create successfully');
+
         //-- Logic Section Ends
 
         //--- Redirect Section        
-        $msg = 'Product Updated Successfully.<a href="'.route('admin-prod-index').'">View Product Lists.</a>';
-        return response()->json($msg);      
+        //$msg = 'Product Updated Successfully.<a href="'.route('admin-prod-index').'">View Product Lists.</a>';
+        //return response()->json($msg);
         //--- Redirect Section Ends    
     }
 
@@ -940,5 +954,11 @@ class ProductController extends Controller
         //--- Redirect Section Ends    
 
 // PRODUCT DELETE ENDS  
+    }
+
+    public function productSupplierDelete($id1, $id2){
+        $product = SupplierProduct::findOrFail($id1);
+        $product->delete();
+        return redirect()->route('admin-prod-edit',$id2)->with('success','Supplier delete successfully');
     }
 }

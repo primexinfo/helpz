@@ -45,28 +45,53 @@ class RegisterController extends Controller
         //--- OTP Section
         $otp = mt_rand(1000, 9999);
         $phone = $request->phone;
-        $smsUrl = "http://gosms.xyz/api/v1/sendSms?username=medylife&password=Vu3wq8e7j7KqqQN&number=(".$phone.")&sms_content=Your%20OTP%20is:%20".$otp."&sms_type=1&masking=non-masking";
+        try{
+            $smsUrl = "http://gosms.xyz/api/v1/sendSms?username=medylife&password=Vu3wq8e7j7KqqQN&number=(".$phone.")&sms_content=Your%20OTP%20is:%20".$otp."&sms_type=1&masking=non-masking";
 
-        //otp table
+            //otp table
 
-        $otp_code = new Otp();
-        $otp_code->name = $request->name;
-        $otp_code->password = $request->password;
-        $otp_code->email = $request->email;
-        $otp_code->phone = $request->phone;
-        $otp_code->otp = $otp;
-        $otp_code->save();
+            $otp_code = new Otp();
+            $otp_code->name = $request->name;
+            $otp_code->password = $request->password;
+            $otp_code->email = $request->email;
+            $otp_code->phone = $request->phone;
+            $otp_code->otp = $otp;
+            $otp_code->save();
 
-        //--- Send api sms request
+            //--- Send api sms request
 
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $smsUrl);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_POST,false);
-        curl_exec($curl); //response output
-        curl_close($curl);
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, $smsUrl);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($curl, CURLOPT_POST,false);
+            curl_exec($curl); //response output
+            curl_close($curl);
 
-        return response($otp);
+            return response($otp);
+        }
+        catch (ClientException $exception){
+            //otp table
+
+            $otp_code = new Otp();
+            $otp_code->name = $request->name;
+            $otp_code->password = $request->password;
+            $otp_code->email = $request->email;
+            $otp_code->phone = $request->phone;
+            $otp_code->otp = $otp;
+            $otp_code->save();
+
+            //--- Send api sms request
+
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, $smsUrl);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($curl, CURLOPT_POST,false);
+            curl_exec($curl); //response output
+            curl_close($curl);
+
+            return response($otp);
+
+        }
 
         //--- end OTP section
 

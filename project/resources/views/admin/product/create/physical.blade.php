@@ -8,6 +8,7 @@
 @endsection
 @section('content')
 
+
 						<div class="content-area">
 							<div class="mr-breadcrumb">
 								<div class="row">
@@ -34,13 +35,39 @@
 								</div>
 							</div>
 							<div class="add-product-content">
+								@if ($errors->any())
+									<div class="alert alert-danger">
+										<ul>
+											@foreach ($errors->all() as $error)
+												<li>{{ $error }}</li>
+											@endforeach
+										</ul>
+									</div>
+								@endif
+								@if (session('success'))
+									<div class="alert alert-success alert-dismissible fade show session-message" role="alert">
+										<strong>{{ session('success') }}</strong>
+										<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+								@endif
+
+								@if (session('warning'))
+									<div class="alert alert-danger alert-dismissible fade show session-message" role="alert">
+										<strong>{{ session('warning') }}</strong>
+										<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+								@endif
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="product-description">
 											<div class="body-area">
 
 					                      <div class="gocover" style="background: url({{asset('assets/images/'.$gs->admin_loader)}}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>
-					                      <form id="geniusform" action="{{route('admin-prod-store')}}" method="POST" enctype="multipart/form-data">
+					                      <form id="" action="{{route('admin-prod-store')}}" method="POST" enctype="multipart/form-data">
 					                        {{csrf_field()}}
 
                         @include('includes.admin.form-both')  
