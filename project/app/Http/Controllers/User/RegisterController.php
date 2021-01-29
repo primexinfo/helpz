@@ -67,7 +67,7 @@ class RegisterController extends Controller
             curl_exec($curl); //response output
             curl_close($curl);
 
-            return response($otp);
+            return response()->json('success');
         }
         catch (ClientException $exception){
             //otp table
@@ -89,7 +89,7 @@ class RegisterController extends Controller
             curl_exec($curl); //response output
             curl_close($curl);
 
-            return response($otp);
+            return response()->json('success');
 
         }
 
@@ -171,7 +171,7 @@ class RegisterController extends Controller
             $registration_info->update([
                 'otp'=> $otp,
             ]);
-           return response($registration_info->otp);
+           return response()->json('success');
        }
        else{
            return response('failed');
@@ -179,8 +179,9 @@ class RegisterController extends Controller
 
     }
 
-    public function registerOtp(Request $request){
-        $registration_info = Otp::where('otp',$request->otp)->latest()->first();
+    public function registerOtp(Request $request){;
+        $registration_info = Otp::where('phone',$request->phone)
+                                ->where('otp',$request->otp)->latest()->first();
         if($registration_info){
             $password = $registration_info->password;
             $user = new User;
