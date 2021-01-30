@@ -121,5 +121,4 @@ class LoginController extends Controller
         session(['captcha_string' => $word]);
         imagepng($image, $actual_path."assets/images/capcha_code.png");
     }
-
 }

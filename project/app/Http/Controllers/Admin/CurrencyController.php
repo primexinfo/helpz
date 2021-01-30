@@ -116,7 +116,7 @@ class CurrencyController extends Controller
     {
         if($id == 1)
         {
-            return "You cant't remove the main currency.";
+        return "You cant't remove the main currency.";
         }
         $data = Currency::findOrFail($id);
         if($data->is_default == 1) {
