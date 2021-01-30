@@ -8,6 +8,7 @@
 @endsection
 @section('content')
 
+
 						<div class="content-area">
 							<div class="mr-breadcrumb">
 								<div class="row">
@@ -34,13 +35,39 @@
 								</div>
 							</div>
 							<div class="add-product-content">
+								@if ($errors->any())
+									<div class="alert alert-danger">
+										<ul>
+											@foreach ($errors->all() as $error)
+												<li>{{ $error }}</li>
+											@endforeach
+										</ul>
+									</div>
+								@endif
+								@if (session('success'))
+									<div class="alert alert-success alert-dismissible fade show session-message" role="alert">
+										<strong>{{ session('success') }}</strong>
+										<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+								@endif
+
+								@if (session('warning'))
+									<div class="alert alert-danger alert-dismissible fade show session-message" role="alert">
+										<strong>{{ session('warning') }}</strong>
+										<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+								@endif
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="product-description">
 											<div class="body-area">
 
 					                      <div class="gocover" style="background: url({{asset('assets/images/'.$gs->admin_loader)}}) no-repeat scroll center center rgba(45, 45, 45, 0.5);"></div>
-					                      <form id="geniusform" action="{{route('admin-prod-store')}}" method="POST" enctype="multipart/form-data">
+					                      <form id="" action="{{route('admin-prod-store')}}" method="POST" enctype="multipart/form-data">
 					                        {{csrf_field()}}
 
                         @include('includes.admin.form-both')  
@@ -88,12 +115,12 @@
 														</div>
 													</div>
 													<div class="col-lg-7">
-															<select id="cat" name="admin-subcat-load" required="">
-																	<option value="">{{ __('Select Category') }}</option>
-						                                              @foreach($cats as $cat)
-						                                                  <option data-href="{{ route('admin-subcat-load',$cat->id) }}" value="{{ $cat->id }}">{{$cat->name}}</option>
-						                                              @endforeach
-						                                     </select>
+														<select id="cat" name="category_id" required="">
+																<option value="">{{ __('Select Category') }}</option>
+																  @foreach($cats as $cat)
+																	  <option data-href="{{ route('admin-subcat-load',$cat->id) }}" value="{{ $cat->id }}">{{$cat->name}}</option>
+																  @endforeach
+														 </select>
 													</div>
 												</div>
 
@@ -123,11 +150,27 @@
 													</div>
 												</div>
 
-												
 
+											  <div class="row" id="supplier_add">
+												  <div class="col-lg-4">
+													  <div class="left-area">
+														  <h4 class="heading">{{ __("Supplier") }}</h4>
+													  </div>
+												  </div>
+												  <div class="col-lg-7">
+													  <select id="" name="supplier_id[]" >
+														  <option value="">Select</option>
+														  @foreach($suppliers as $supplier)
+															  <option value="{{$supplier->id}}">{{$supplier->name}}</option>
+														  @endforeach
+													  </select>
+												  </div>
 
+											  </div>
 
-							                     <div class="row">
+											  <a href="javascript:;" id="supplier_add_button" class="add-more"><i class="fas fa-plus"></i>{{ __('Add More Supplier') }} </a>
+
+							                     <div class="row mt-2">
 							                        <div class="col-lg-4">
 							                          <div class="left-area">
 							                              <h4 class="heading">{{ __('Feature Image') }} *</h4>
@@ -706,6 +749,36 @@ $('.cropme').simpleCropper();
 $('#crop-image').on('click',function(){
 $('.cropme').click();
 });
+
+
+var max_fields = 15;
+x=0;
+$("#supplier_add_button").click(function(e){
+    e.preventDefault();
+    if(x<max_fields) {
+        x++;
+        $('#supplier_add').append('<div class="col-lg-4">\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t\t  <div class="left-area">\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t\t\t  <h4 class="heading"></h4>\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t\t  </div>\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t  </div>\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t  <div class="col-lg-7">\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t\t  <select id="" name="supplier_id[]" >\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t\t\t  @foreach($suppliers as $supplier)\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  <option value="{{$supplier->id}}">{{$supplier->name}}</option>\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t\t\t  @endforeach\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t\t  </select>\n' +
+            '\t\t\t\t\t\t\t\t\t\t\t\t  <button class="col-lg-1 btn btn-sm btn-danger"  id="row_remove">X</button></div>');
+
+
+    }});
+
+$('#supplier_add').on("click","#row_remove", function(e){
+    e.preventDefault();
+    $(this).parent('div').remove();
+    x--;
+});
+
 </script>
 
 

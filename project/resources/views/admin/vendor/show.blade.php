@@ -11,30 +11,30 @@
                                     <div class="table-responsive show-table">
                                         <table class="table">
                                             <tr>
-                                                <th>{{ __("Staff ID#") }}</th>
+                                                <th>{{ __("Vendor ID#") }}</th>
                                                 <td>{{$data->id}}</td>
                                             </tr>
                                             <tr>
-                                                <th>{{ __("Staff Photo") }}</th>
+                                                <th>{{ __("Vendor Photo") }}</th>
                                                 <td>
                                               <img src="{{ $data->photo ? asset('assets/images/admins/'.$data->photo):asset('assets/images/noimage.png')}}" alt="{{ __("No Image") }}">
 
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th>{{ __("Staff Name") }}</th>
+                                                <th>{{ __("Vendor Name") }}</th>
                                                 <td>{{$data->name}}</td>
                                             </tr>
                                             <tr>
-                                                <th>{{ __("Staff Role") }}</th>
+                                                <th>{{ __("Vendor Role") }}</th>
                                                 <td>{{$data->role}}</td>
                                             </tr>
                                             <tr>
-                                                <th>{{ __("Staff Email") }}</th>
+                                                <th>{{ __("Vendor Email") }}</th>
                                                 <td>{{$data->email}}</td>
                                             </tr>
                                             <tr>
-                                                <th>{{ __("Staff Phone") }}</th>
+                                                <th>{{ __("Vendor Phone") }}</th>
                                                 <td>{{$data->phone}}</td>
                                             </tr>
                                             <tr>
@@ -43,13 +43,11 @@
                                             </tr>
                                         </table>
                                     </div>
-
-
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 @endsection

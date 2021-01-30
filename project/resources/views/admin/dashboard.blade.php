@@ -186,7 +186,7 @@
                 <div class="card">
                         <h5 class="card-header">{{ __('Recent Customer(s)') }}</h5>
                         <div class="card-body">
-        
+
                             <div class="my-table-responsiv">
                                 <table class="table table-hover dt-responsive" cellspacing="0" width="100%">
                                     <thead>
@@ -208,7 +208,7 @@
                                     </thead>
                                 </table>
                             </div>
-        
+
                         </div>
                     </div>
         </div>
@@ -220,7 +220,7 @@
                     <div class="card">
                             <h5 class="card-header">{{ __('Popular Product(s)') }}</h5>
                             <div class="card-body">
-            
+
                                 <div class="table-responsiv  dashboard-home-table">
                                     <table id="poproducts" class="table table-hover dt-responsive" cellspacing="0" width="100%">
                                         <thead>
@@ -231,7 +231,7 @@
                                                 <th>{{ __('Type') }}</th>
                                                 <th>{{ __('Price') }}</th>
                                                 <th></th>
-                                                
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -265,9 +265,9 @@
                                 </div>
                             </div>
                         </div>
-    
+
             </div>
-    
+
         </div>
 
     <div class="row row-cards-one">
@@ -276,7 +276,7 @@
                     <div class="card">
                             <h5 class="card-header">{{ __('Recent Product(s)') }}</h5>
                             <div class="card-body">
-            
+
                                 <div class="table-responsiv dashboard-home-table">
                                     <table id="pproducts" class="table table-hover dt-responsive" cellspacing="0" width="100%">
                                             <thead>
@@ -287,7 +287,7 @@
                                                         <th>{{ __('Type') }}</th>
                                                         <th>{{ __('Price') }}</th>
                                                         <th></th>
-                                                        
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -317,12 +317,12 @@
                                                 </tbody>
                                     </table>
                                 </div>
-            
+
                             </div>
                         </div>
-    
+
             </div>
-    
+
         </div>
 
     <div class="row row-cards-one">
@@ -353,7 +353,7 @@
                     <div class="admin-fix-height-card">
                          <div id="chartContainer-topReference"></div>
                     </div>
-                       
+
                 </div>
             </div>
 
@@ -369,7 +369,7 @@
                         </div>
                     </div>
         </div>
-        
+
     </div>
 
 
@@ -409,7 +409,7 @@
     }
 
 
-    
+
 </script>
 
 <script type="text/javascript">
@@ -507,7 +507,7 @@
                     }
                 ]
             });
-        chart.render();    
+        chart.render();
 </script>
 
 @endsection

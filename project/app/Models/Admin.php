@@ -9,7 +9,7 @@ class Admin extends Authenticatable
     protected $guard = 'admin';
 
     protected $fillable = [
-        'name', 'email', 'phone', 'password', 'role', 'photo', 'created_at', 'updated_at', 'remember_token','shop_name'
+        'name', 'email', 'phone', 'password', 'role', 'photo', 'created_at', 'updated_at', 'remember_token','shop_name','status'
     ];
 
     protected $hidden = [
@@ -29,5 +29,12 @@ class Admin extends Authenticatable
         }
         return false;
     }
+    public function IsVendor(){
+        if ($this->role == 'Vendor') {
+            return true;
+        }
+        return false;
+    }
+
 
 }

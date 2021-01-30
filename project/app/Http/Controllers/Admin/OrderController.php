@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Classes\GeniusMailer;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Generalsetting;
 use App\Models\Order;
 use App\Models\OrderTrack;
+use App\Models\Product;
+use Carbon\Carbon;
 use Datatables;
 use Illuminate\Http\Request;
 
@@ -254,4 +257,20 @@ class OrderController extends Controller
         $mainorder = Order::findOrFail($id);
 
     }
+
+    public function ManageOrder(){
+        //$orders = Order::whereDate('created_at', '=', Carbon::today()->toDateString())->get();
+        $orders = Order::all();
+        foreach ($orders as $order){
+            $cart = unserialize(bzdecompress(utf8_decode($order->cart)));
+            dd($order->cart);
+        }
+
+
+        dd($cart->items);
+        $categories = Category::with('subs','subs.childs')->get();
+        $porducts = Product::get();
+        return view('admin.order.manageorder',compact('categories','porducts','orders'));
+    }
+
 }

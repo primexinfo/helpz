@@ -168,6 +168,9 @@
 									<a href="{{route('admin-order-index')}}"> {{ __('All Orders') }}</a>
 								</li>
 								<li>
+									<a href="{{route('admin-order-manage')}}"> {{ __('Manage Order') }}</a>
+								</li>
+								<li>
 									<a href="{{route('admin-order-pending')}}"> {{ __('Pending Orders') }}</a>
 								</li>
 								<li>
@@ -220,9 +223,14 @@
 						</li> -->
 
 						<li>
-							<a href="{{ route('admin-vendor-index') }}" class=" wave-effect"><i
-									class="fas fa-user-secret"></i>{{ __('Manage Vendor') }}</a>
+							<a href="{{ route('admin-vendor-index') }}" class=" wave-effect">
+							<i class="fas fa-user-secret"></i>{{ __('Manage Vendor') }}</a>
 						</li>
+
+                        <li>
+                            <a href="{{ route('admin-supplier-index') }}" class=" wave-effect">
+                                <i class="fas fa-user-secret"></i>{{ __('Manage Supplier') }}</a>
+                        </li>
 
 						<li>
 							<a href="#menu3" class="accordion-toggle wave-effect" data-toggle="collapse"

@@ -54,6 +54,7 @@ Route::prefix('admin')->group(function() {
   //------------ ADMIN ORDER SECTION ------------
   Route::get('/orders/datatables/{slug}', 'Admin\OrderController@datatables')->name('admin-order-datatables'); //JSON REQUEST
   Route::get('/orders', 'Admin\OrderController@index')->name('admin-order-index');
+  Route::get('/orders/manage', 'Admin\OrderController@ManageOrder')->name('admin-order-manage');
   Route::get('/order/edit/{id}', 'Admin\OrderController@edit')->name('admin-order-edit');
   Route::post('/order/update/{id}', 'Admin\OrderController@update')->name('admin-order-update');
   Route::get('/orders/pending', 'Admin\OrderController@pending')->name('admin-order-pending');
@@ -142,6 +143,7 @@ Route::prefix('admin')->group(function() {
   Route::post('/products/store', 'Admin\ProductController@store')->name('admin-prod-store');
   Route::get('/products/import', 'Admin\ProductController@import')->name('admin-prod-import');
   Route::post('/products/import-submit', 'Admin\ProductController@importSubmit')->name('admin-prod-importsubmit');
+  Route::get('/products/supplier/delete/{id1}/{id2}', 'Admin\ProductController@productSupplierDelete')->name('product-supplier-delete');
   // CREATE SECTION
 
 
@@ -266,10 +268,25 @@ Route::prefix('admin')->group(function() {
   Route::post('/campaign', 'Admin\CampaignController@store')->name('admin-campaign-store');
   Route::get('/load/dropdown/{id}', 'Admin\CampaignController@dropdown')->name('admin-campaign-dropdown-load');
 
+  Route::get('/capmaign/status/{id1}/{id2}', 'Admin\CampaignController@campaignStatus')->name('admin-campaign-status');
+
+  Route::get('/campaign/rules/datatables', 'Admin\CampaignController@datatables')->name('campaign-rules-datatables');
+  Route::get('/campaign/rules/view/{id}', 'Admin\CampaignController@campaignView')->name('campaign-rules-view');
+  Route::get('/admin/campaign/specific/offer/delete/{id1}/{id2}', 'Admin\CampaignController@adminCampaignSpecificOfferDelete')->name('admin-campaign-specific-offer-delete');
+
+  Route::post('/admin/campaign-update/{id}', 'Admin\CampaignController@update')->name('admin-campaign-update');
+  Route::get('/campaign/rules/delete/{id}', 'Admin\CampaignController@deleteCampaign')->name('campaign-rules-delete');
+
   //------------ ADMIN Campaign SECTION ENDS------------
 
   //------------ ADMIN Reward SECTION ------------
   Route::get('/rewardPoint', 'Admin\RewardController@index')->name('admin-reward-index');
+  Route::post('/admin/reward/store', 'Admin\RewardController@store')->name('admin-reward-store');
+  Route::get('/admin/reward/status/{id1}/{id2}', 'Admin\RewardController@status')->name('admin-reward-status');
+  Route::get('/admin/reward/edit/{id}', 'Admin\RewardController@show')->name('admin-rewards-edit');
+  Route::post('/admin/reward/update/{id}', 'Admin\RewardController@update')->name('admin-reward-update');
+  Route::get('/admin/reward/delete/{id}', 'Admin\RewardController@delete')->name('admin-rewards-delete');
+
 
   //------------ ADMIN Reward SECTION ENDS------------
 
@@ -646,12 +663,21 @@ Route::get('/package/delete/{id}', 'Admin\PackageController@destroy')->name('adm
   Route::get('/vendor/create', 'Admin\VendorController@create')->name('admin-vendor-create');
   Route::post('/vendor/create', 'Admin\VendorController@store')->name('admin-vendor-store');
   Route::get('/vendor/edit/{id}', 'Admin\VendorController@show')->name('admin-vendor-show'); 
-  Route::get('/vendor/delete/{id}', 'Admin\VendorController@destroy')->name('admin-vendor-delete'); 
+  Route::get('/vendor/delete/{id}', 'Admin\VendorController@destroy')->name('admin-vendor-delete');
+  Route::get('/vendor/status/{id1}/{id2}', 'Admin\VendorController@status')->name('admin-vendor-status');
 
   //------------ Vendor SECTION ENDS------------
 
+  //------------ Supplier SECTION ------------
+  Route::get('/supplier/datatables', 'Admin\SupplierController@datatables')->name('admin-supplier-datatables');
+  Route::get('/supplier', 'Admin\SupplierController@index')->name('admin-supplier-index');
+  Route::get('/supplier/create', 'Admin\SupplierController@create')->name('admin-supplier-create');
+  Route::post('/supplier/create', 'Admin\SupplierController@store')->name('admin-supplier-store');
+  Route::get('/supplier/edit/{id}', 'Admin\SupplierController@show')->name('admin-supplier-show');
+  Route::get('/supplier/delete/{id}', 'Admin\SupplierController@destroy')->name('admin-supplier-delete');
 
-});
+
+  });
   //------------ ADMIN SUBSCRIBERS SECTION ------------
 
   Route::get('/subscribers/datatables', 'Admin\SubscriberController@datatables')->name('admin-subs-datatables'); //JSON REQUEST

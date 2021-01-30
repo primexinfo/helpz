@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Childcategory;
 use App\Models\Subcategory;
+use App\Models\Supplier;
+use App\Models\SupplierProduct;
 use Datatables;
 use Carbon\Carbon;
 use App\Models\Product;
@@ -124,24 +126,27 @@ class ProductController extends Controller
     public function createPhysical()
     {
         $cats = Category::all();
+        $suppliers = Supplier::all();
         $sign = Currency::where('is_default','=',1)->first();
-        return view('admin.product.create.physical',compact('cats','sign'));
+        return view('admin.product.create.physical',compact('cats','sign','suppliers'));
     }
 
     //*** GET Request
     public function createDigital()
     {
         $cats = Category::all();
+        $suppliers = Supplier::all();
         $sign = Currency::where('is_default','=',1)->first();
-        return view('admin.product.create.digital',compact('cats','sign'));
+        return view('admin.product.create.digital',compact('cats','sign','suppliers'));
     }
 
     //*** GET Request
     public function createLicense()
     {
         $cats = Category::all();
+        $suppliers = Supplier::all();
         $sign = Currency::where('is_default','=',1)->first();
-        return view('admin.product.create.license',compact('cats','sign'));
+        return view('admin.product.create.license',compact('cats','sign','suppliers'));
     }
 
     //*** GET Request
@@ -216,6 +221,7 @@ class ProductController extends Controller
         $data = new Product;
         $sign = Currency::where('is_default','=',1)->first();
         $input = $request->all();
+
 
         // Check File
         if ($file = $request->file('file'))
@@ -409,11 +415,21 @@ class ProductController extends Controller
                 }
             }
         }
-        //logic Section Ends
 
+        if(count($request->supplier_id) >= 1 && $request->supplier_id[0] != ''){
+            $product_id = Product::latest()->first();
+            foreach ($request->supplier_id as $key => $value){
+                SupplierProduct::create([
+                    'supplier_id' => $value,
+                    'product_id' => $product_id->id,
+                ]);
+            }
+        }
+        //logic Section Ends
+        return view('admin.product.index')->with('success','Product create successfully');
         //--- Redirect Section        
-        $msg = 'New Product Added Successfully.<a href="'.route('admin-prod-index').'">View Product Lists.</a>';
-        return response()->json($msg);
+        //$msg = 'New Product Added Successfully.<a href="'.route('admin-prod-index').'">View Product Lists.</a>';
+        //return response()->json($msg);
         //--- Redirect Section Ends    
     }
 
@@ -556,16 +572,17 @@ class ProductController extends Controller
     public function edit($id)
     {
         $cats = Category::all();
+        $suppliers = Supplier::all();
         $data = Product::findOrFail($id);
         $sign = Currency::where('is_default','=',1)->first();
 
 
         if($data->type == 'Digital')
-            return view('admin.product.edit.digital',compact('cats','data','sign'));
+            return view('admin.product.edit.digital',compact('cats','data','sign','suppliers'));
         elseif($data->type == 'License')
-            return view('admin.product.edit.license',compact('cats','data','sign'));
+            return view('admin.product.edit.license',compact('cats','data','sign','suppliers'));
         else
-            return view('admin.product.edit.physical',compact('cats','data','sign'));
+            return view('admin.product.edit.physical',compact('cats','data','sign','suppliers'));
     }
 
     //*** POST Request
@@ -766,11 +783,24 @@ class ProductController extends Controller
 
 
          $data->update($input);
+         //dd(count($request->supplier_id));
+        if(count($request->supplier_id) >= 1 && $request->supplier_id[0] != ''){
+            foreach ($request->supplier_id as $key => $value){
+                SupplierProduct::create([
+                    'supplier_id' => $value,
+                    'product_id' => $id,
+                ]);
+            }
+        }
+
+
+        return view('admin.product.index')->with('success','Product create successfully');
+
         //-- Logic Section Ends
 
         //--- Redirect Section        
-        $msg = 'Product Updated Successfully.<a href="'.route('admin-prod-index').'">View Product Lists.</a>';
-        return response()->json($msg);      
+        //$msg = 'Product Updated Successfully.<a href="'.route('admin-prod-index').'">View Product Lists.</a>';
+        //return response()->json($msg);
         //--- Redirect Section Ends    
     }
 
@@ -841,6 +871,9 @@ class ProductController extends Controller
     {
 
         $data = Product::findOrFail($id);
+
+
+
         if($data->galleries->count() > 0)
         {
             foreach ($data->galleries as $gal) {
@@ -851,6 +884,8 @@ class ProductController extends Controller
             }
 
         }
+
+
 
         if($data->reports->count() > 0)
         {
@@ -891,6 +926,7 @@ class ProductController extends Controller
         }
 
 
+
         if (!filter_var($data->photo,FILTER_VALIDATE_URL)){
             if (file_exists(public_path().'/assets/images/products/'.$data->photo)) {
                 unlink(public_path().'/assets/images/products/'.$data->photo);
@@ -907,11 +943,22 @@ class ProductController extends Controller
             }
         }
         $data->delete();
+
+        $product_suppliers = SupplierProduct::where('product_id',$id)->get();
+        foreach ($product_suppliers as $product_supplier){
+            $product_supplier->delete();
+        }
         //--- Redirect Section     
         $msg = 'Product Deleted Successfully.';
         return response()->json($msg);      
         //--- Redirect Section Ends    
 
 // PRODUCT DELETE ENDS  
+    }
+
+    public function productSupplierDelete($id1, $id2){
+        $product = SupplierProduct::findOrFail($id1);
+        $product->delete();
+        return redirect()->route('admin-prod-edit',$id2)->with('success','Supplier delete successfully');
     }
 }

@@ -31,3 +31,5 @@ Route::post('register', 'User\RegisterController@register');
 Route::post('register-otp', 'User\RegisterController@registerOtp');
 Route::post('resend-otp', 'User\RegisterController@resendOtp');
 Route::post('login', 'User\LoginController@login');
+
+Route::post('product/cat/sub/child', 'Api\ApiCategoryController@productAscategories');

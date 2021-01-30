@@ -32,6 +32,11 @@ class Product extends Model
         return $this->belongsTo('App\Models\Childcategory');
     }
 
+    public function supplier_product()
+    {
+        return $this->hasMany('App\Models\SupplierProduct','product_id');
+    }
+
     public function galleries()
     {
         return $this->hasMany('App\Models\Gallery');

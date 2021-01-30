@@ -263,22 +263,22 @@
                                         <div class="mr-table">
                                             <h4 class="title">{{ __('Products Ordered') }}</h4>
                                             <div class="table-responsiv">
-                                                    <table id="example2" class="table table-hover dt-responsive" cellspacing="0" width="100%">
-                                                        <thead>
-                                                            <tr>
-                                <tr>
-                                    <th width="10%">{{ __('Product ID#') }}</th>
-                                    <th>{{ __('Product Title') }}</th>
-                                    <th width="10%">{{ __('Quantity') }}</th>
-                                    <th width="10%">{{ __('Size') }}</th>
-                                    <th width="10%">{{ __('Color') }}</th>
-                                    <th width="10%">{{ __('Total Price') }}</th>
-                                </tr>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                @foreach($cart->items as $key => $product)
-                                    <tr>
+                                                <table id="example2" class="table table-hover dt-responsive" cellspacing="0" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                        <tr>
+                                                            <th width="10%">{{ __('Product ID#') }}</th>
+                                                            <th>{{ __('Product Title') }}</th>
+                                                            <th width="10%">{{ __('Quantity') }}</th>
+                                                            <th width="10%">{{ __('Size') }}</th>
+                                                            <th width="10%">{{ __('Color') }}</th>
+                                                            <th width="10%">{{ __('Total Price') }}</th>
+                                                        </tr>
+                                                        </tr>
+                                                    </thead>
+                                        <tbody>
+                                        @foreach($cart->items as $key => $product)
+                                            <tr>
                                         
                                             <td><input type="hidden" value="{{$key}}">{{ $product['item']['id'] }}</td>
                                             <td>

@@ -49,7 +49,7 @@ class CheckoutController extends Controller
         $dp = 1;
         $vendor_shipping_id = 0;
         $vendor_packing_id = 0;
-            if (Session::has('currency')) 
+            if (Session::has('currency'))
             {
               $curr = Currency::find(Session::get('currency'));
             }
@@ -90,14 +90,14 @@ class CheckoutController extends Controller
                 }
                 if(!Session::has('coupon_total'))
                 {
-                $total = $total - $coupon;     
-                $total = $total + 0;               
+                $total = $total - $coupon;
+                $total = $total + 0;
                 }
                 else {
-                $total = Session::get('coupon_total');  
-                $total = $total + round(0 * $curr->value, 2); 
+                $total = Session::get('coupon_total');
+                $total = $total + round(0 * $curr->value, 2);
                 }
-        return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id]);             
+        return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id]);
         }
 
         else
@@ -134,12 +134,12 @@ class CheckoutController extends Controller
                 }
                 if(!Session::has('coupon_total'))
                 {
-                $total = $total - $coupon;     
-                $total = $total + 0;               
+                $total = $total - $coupon;
+                $total = $total + 0;
                 }
                 else {
-                $total = Session::get('coupon_total');  
-                $total =  str_replace($curr->sign,'',$total) + round(0 * $curr->value, 2); 
+                $total = Session::get('coupon_total');
+                $total =  str_replace($curr->sign,'',$total) + round(0 * $curr->value, 2);
                 }
                 foreach ($products as $prod) {
                     if($prod['item']['type'] != 'Physical')
@@ -147,11 +147,11 @@ class CheckoutController extends Controller
                         if(!Auth::guard('web')->check())
                         {
                 $ck = 1;
-        return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'checked' => $ck, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id]);  
+        return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'checked' => $ck, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id]);
                         }
                     }
                 }
-        return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id]);                 
+        return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id]);
                }
 
 // If guest checkout is Deactivated then display pop up form with proper error message
@@ -180,15 +180,15 @@ class CheckoutController extends Controller
                 }
                 if(!Session::has('coupon_total'))
                 {
-                $total = $total - $coupon;     
-                $total = $total + 0;               
+                $total = $total - $coupon;
+                $total = $total + 0;
                 }
                 else {
-                $total = Session::get('coupon_total');  
-                $total = $total + round(0 * $curr->value, 2); 
+                $total = Session::get('coupon_total');
+                $total = $total + round(0 * $curr->value, 2);
                 }
                 $ck = 1;
-        return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'checked' => $ck, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id]);                 
+        return view('front.checkout', ['products' => $cart->items, 'totalPrice' => $total, 'pickups' => $pickups, 'totalQty' => $cart->totalQty, 'gateways' => $gateways, 'shipping_cost' => 0, 'checked' => $ck, 'digital' => $dp, 'curr' => $curr,'shipping_data' => $shipping_data,'package_data' => $package_data, 'vendor_shipping_id' => $vendor_shipping_id, 'vendor_packing_id' => $vendor_packing_id]);
                     }
         }
 
@@ -202,20 +202,20 @@ class CheckoutController extends Controller
             if(count($users) == 0) {
                 if ($request->personal_pass == $request->personal_confirm){
                     $user = new User;
-                    $user->name = $request->personal_name; 
-                    $user->email = $request->personal_email;   
+                    $user->name = $request->personal_name;
+                    $user->email = $request->personal_email;
                     $user->password = bcrypt($request->personal_pass);
                     $token = md5(time().$request->personal_name.$request->personal_email);
                     $user->verification_link = $token;
                     $user->affilate_code = md5($request->name.$request->email);
                     $user->save();
-                    Auth::guard('web')->login($user);                     
+                    Auth::guard('web')->login($user);
                 }else{
-                    return redirect()->back()->with('unsuccess',"Confirm Password Doesn't Match.");     
+                    return redirect()->back()->with('unsuccess',"Confirm Password Doesn't Match.");
                 }
             }
             else {
-                return redirect()->back()->with('unsuccess',"This Email Already Exist.");  
+                return redirect()->back()->with('unsuccess',"This Email Already Exist.");
             }
         }
 
@@ -223,7 +223,7 @@ class CheckoutController extends Controller
         if (!Session::has('cart')) {
             return redirect()->route('front.cart')->with('success',"You don't have any product to checkout.");
         }
-            if (Session::has('currency')) 
+            if (Session::has('currency'))
             {
               $curr = Currency::find(Session::get('currency'));
             }
@@ -253,10 +253,10 @@ class CheckoutController extends Controller
                         $license = $temp[$ttl];
                          $oldCart = Session::has('cart') ? Session::get('cart') : null;
                          $cart = new Cart($oldCart);
-                         $cart->updateLicense($prod['item']['id'],$license);  
+                         $cart->updateLicense($prod['item']['id'],$license);
                          Session::put('cart',$cart);
                         break;
-                    }                    
+                    }
                 }
         }
         }
@@ -265,10 +265,10 @@ class CheckoutController extends Controller
         $item_name = $gs->title." Order";
         $item_number = str_random(4).time();
         $order['user_id'] = $request->user_id;
-        $order['cart'] = utf8_encode(bzcompress(serialize($cart), 9)); 
+        $order['cart'] = utf8_encode(bzcompress(serialize($cart), 9));
         $order['totalQty'] = $request->totalQty;
         $order['pay_amount'] = round($request->total / $curr->value, 2) + $request->shipping_cost + $request->packing_cost;
-        $order['method'] = $request->method;
+        //$order['method'] = $request->method;
         $order['shipping'] = $request->shipping;
         $order['pickup_location'] = $request->pickup_location;
         $order['customer_email'] = $request->email;
@@ -299,7 +299,7 @@ class CheckoutController extends Controller
         $order['vendor_shipping_id'] = $request->vendor_shipping_id;
         $order['vendor_packing_id'] = $request->vendor_packing_id;
 
-            if (Session::has('affilate')) 
+            if (Session::has('affilate'))
             {
                 $val = $request->total / 100;
                 $sub = $val * $gs->affilate_charge;
@@ -346,7 +346,7 @@ class CheckoutController extends Controller
                 $temp[$prod['size_key']] = $x;
                 $temp1 = implode(',', $temp);
                 $product->size_qty =  $temp1;
-                $product->update();               
+                $product->update();
             }
         }
 
@@ -359,13 +359,13 @@ class CheckoutController extends Controller
 
                 $product = Product::findOrFail($prod['item']['id']);
                 $product->stock =  $prod['stock'];
-                $product->update();  
+                $product->update();
                 if($product->stock <= 5)
                 {
                     $notification = new Notification;
                     $notification->product_id = $product->id;
-                    $notification->save();                    
-                }              
+                    $notification->save();
+                }
             }
         }
 
@@ -399,7 +399,7 @@ class CheckoutController extends Controller
         ];
 
         $mailer = new GeniusMailer();
-        $mailer->sendAutoOrderMail($data,$order->id);            
+        $mailer->sendAutoOrderMail($data,$order->id);
         }
         else
         {
@@ -407,7 +407,7 @@ class CheckoutController extends Controller
            $subject = "Your Order Placed!!";
            $msg = "Hello ".$request->name."!\nYou have placed a new order.\nYour order number is ".$order->order_number.".Please wait for your delivery. \nThank you.";
             $headers = "From: ".$gs->from_name."<".$gs->from_email.">";
-           mail($to,$subject,$msg,$headers);            
+           mail($to,$subject,$msg,$headers);
         }
         //Sending Email To Admin
         if($gs->is_smtp == 1)
@@ -419,7 +419,7 @@ class CheckoutController extends Controller
             ];
 
             $mailer = new GeniusMailer();
-            $mailer->sendCustomMail($data);            
+            $mailer->sendCustomMail($data);
         }
         else
         {
@@ -440,20 +440,20 @@ class CheckoutController extends Controller
             if(count($users) == 0) {
                 if ($request->personal_pass == $request->personal_confirm){
                     $user = new User;
-                    $user->name = $request->personal_name; 
-                    $user->email = $request->personal_email;   
+                    $user->name = $request->personal_name;
+                    $user->email = $request->personal_email;
                     $user->password = bcrypt($request->personal_pass);
                     $token = md5(time().$request->personal_name.$request->personal_email);
                     $user->verification_link = $token;
                     $user->affilate_code = md5($request->name.$request->email);
                     $user->save();
-                    Auth::guard('web')->login($user);                     
+                    Auth::guard('web')->login($user);
                 }else{
-                    return redirect()->back()->with('unsuccess',"Confirm Password Doesn't Match.");     
+                    return redirect()->back()->with('unsuccess',"Confirm Password Doesn't Match.");
                 }
             }
             else {
-                return redirect()->back()->with('unsuccess',"This Email Already Exist.");  
+                return redirect()->back()->with('unsuccess',"This Email Already Exist.");
             }
         }
 
@@ -463,7 +463,7 @@ class CheckoutController extends Controller
         }
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
-            if (Session::has('currency')) 
+            if (Session::has('currency'))
             {
               $curr = Currency::find(Session::get('currency'));
             }
@@ -490,10 +490,10 @@ class CheckoutController extends Controller
                         $license = $temp[$ttl];
                          $oldCart = Session::has('cart') ? Session::get('cart') : null;
                          $cart = new Cart($oldCart);
-                         $cart->updateLicense($prod['item']['id'],$license);  
+                         $cart->updateLicense($prod['item']['id'],$license);
                          Session::put('cart',$cart);
                         break;
-                    }                    
+                    }
                 }
         }
         }
@@ -506,7 +506,7 @@ class CheckoutController extends Controller
         $order['cart'] = utf8_encode(bzcompress(serialize($cart), 9));
         $order['totalQty'] = $request->totalQty;
         $order['pay_amount'] = round($request->total / $curr->value, 2) + $request->shipping_cost + $request->packing_cost;
-        $order['method'] = $request->method;
+        //$order['method'] = $request->method;
         $order['shipping'] = $request->shipping;
         $order['pickup_location'] = $request->pickup_location;
         $order['customer_email'] = $request->email;
@@ -536,8 +536,8 @@ class CheckoutController extends Controller
         $order['currency_sign'] = $curr->sign;
         $order['currency_value'] = $curr->value;
         $order['vendor_shipping_id'] = $request->vendor_shipping_id;
-        $order['vendor_packing_id'] = $request->vendor_packing_id;        
-            if (Session::has('affilate')) 
+        $order['vendor_packing_id'] = $request->vendor_packing_id;
+            if (Session::has('affilate'))
             {
                 $val = $request->total / 100;
                 $sub = $val * $gs->affilate_charge;
@@ -554,7 +554,7 @@ class CheckoutController extends Controller
         $track->text = 'You have successfully placed your order.';
         $track->order_id = $order->id;
         $track->save();
-        
+
         $notification = new Notification;
         $notification->order_id = $order->id;
         $notification->save();
@@ -584,7 +584,7 @@ class CheckoutController extends Controller
                 $temp[$prod['size_key']] = $x;
                 $temp1 = implode(',', $temp);
                 $product->size_qty =  $temp1;
-                $product->update();               
+                $product->update();
             }
         }
 
@@ -597,13 +597,13 @@ class CheckoutController extends Controller
 
                 $product = Product::findOrFail($prod['item']['id']);
                 $product->stock =  $prod['stock'];
-                $product->update();  
+                $product->update();
                 if($product->stock <= 5)
                 {
                     $notification = new Notification;
                     $notification->product_id = $product->id;
-                    $notification->save();                    
-                }              
+                    $notification->save();
+                }
             }
         }
 
@@ -618,7 +618,7 @@ class CheckoutController extends Controller
 
 
 
-        
+
 
         //Sending Email To Buyer
         if($gs->is_smtp == 1)
@@ -635,7 +635,7 @@ class CheckoutController extends Controller
         ];
 
         $mailer = new GeniusMailer();
-        $mailer->sendAutoOrderMail($data,$order->id);            
+        $mailer->sendAutoOrderMail($data,$order->id);
         }
         else
         {
@@ -643,7 +643,7 @@ class CheckoutController extends Controller
            $subject = "Your Order Placed!!";
            $msg = "Hello ".$request->name."!\nYou have placed a new order.\nYour order number is ".$order->order_number.".Please wait for your delivery. \nThank you.";
             $headers = "From: ".$gs->from_name."<".$gs->from_email.">";
-           mail($to,$subject,$msg,$headers);            
+           mail($to,$subject,$msg,$headers);
         }
         //Sending Email To Admin
         if($gs->is_smtp == 1)
@@ -655,7 +655,7 @@ class CheckoutController extends Controller
             ];
 
             $mailer = new GeniusMailer();
-            $mailer->sendCustomMail($data);            
+            $mailer->sendCustomMail($data);
         }
         else
         {

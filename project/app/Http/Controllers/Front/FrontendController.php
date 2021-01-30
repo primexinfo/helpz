@@ -153,7 +153,6 @@ class FrontendController extends Controller
         $trending_products =  Product::where('trending','=',1)->where('status','=',1)->take(9)->get();
         $sale_products =  Product::where('sale','=',1)->where('status','=',1)->take(9)->get();
 
-
 	    return view('front.index',compact('ps','sliders','services','reviews','top_small_banners','large_banners','bottom_small_banners','feature_products','best_products','top_products','hot_products','latest_products','big_products','trending_products','sale_products','discount_products','partners'));
 	}
 
