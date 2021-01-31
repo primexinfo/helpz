@@ -179,7 +179,7 @@ class RegisterController extends Controller
 
     }
 
-    public function registerOtp(Request $request){;
+    public function registerOtp(Request $request){
         $registration_info = Otp::where('phone',$request->phone)
                                 ->where('otp',$request->otp)->latest()->first();
         if($registration_info){

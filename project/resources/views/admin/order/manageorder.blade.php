@@ -92,13 +92,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach($orders as $order)
-                                        {{--@php--}}
-                                            {{--$cart = $order->cart;--}}
-
-                                        {{--@endphp--}}
-                                        )
-                                            {{$order->cart}}
-
+                                            {{unserialize(bzdecompress(utf8_decode($order->cart)))}}
                                         @endforeach
                                 </tbody>
                             </table>

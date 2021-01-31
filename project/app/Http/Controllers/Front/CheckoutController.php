@@ -58,7 +58,7 @@ class CheckoutController extends Controller
                 $curr = Currency::where('is_default','=',1)->first();
             }
 
-// If a user is Authenticated then there is no problm user can go for checkout
+        // If a user is Authenticated then there is no problm user can go for checkout
 
         if(Auth::guard('web')->check())
         {
@@ -194,9 +194,9 @@ class CheckoutController extends Controller
 
     }
 
-
     public function cashondelivery(Request $request)
     {
+
         if($request->pass_check) {
             $users = User::where('email','=',$request->personal_email)->get();
             if(count($users) == 0) {
@@ -218,7 +218,6 @@ class CheckoutController extends Controller
                 return redirect()->back()->with('unsuccess',"This Email Already Exist.");
             }
         }
-
 
         if (!Session::has('cart')) {
             return redirect()->route('front.cart')->with('success',"You don't have any product to checkout.");
@@ -369,9 +368,6 @@ class CheckoutController extends Controller
             }
         }
 
-
-
-
         Session::put('temporder',$order);
         Session::put('tempcart',$cart);
 
@@ -397,6 +393,7 @@ class CheckoutController extends Controller
             'wtitle' => "",
             'onumber' => $order->order_number,
         ];
+
 
         $mailer = new GeniusMailer();
         $mailer->sendAutoOrderMail($data,$order->id);

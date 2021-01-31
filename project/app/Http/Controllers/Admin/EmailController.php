@@ -28,7 +28,7 @@ class EmailController extends Controller
          return Datatables::of($datas)
                             ->addColumn('action', function(EmailTemplate $data) {
                                 return '<div class="action-list"><a data-href="' . route('admin-mail-edit',$data->id) . '" class="edit" data-toggle="modal" data-target="#modal1"> <i class="fas fa-edit"></i>Edit</a></div>';
-                            }) 
+                            })
                             ->toJson();//--- Returning Json Data To Client Side
     }
 
@@ -104,7 +104,7 @@ class EmailController extends Controller
                 ];
 
                 $mailer = new GeniusMailer();
-                $mailer->sendCustomMail($data);            
+                $mailer->sendCustomMail($data);
             }
             else
             {
