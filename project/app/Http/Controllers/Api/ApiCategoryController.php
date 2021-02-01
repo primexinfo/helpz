@@ -16,10 +16,8 @@ use Validator;
 class ApiCategoryController extends Controller
 {
 
-
     public function productAscategories(Request $request)
     {
-
         if($request->category_id){
             $product = Product::with('galleries')->where('category_id',$request->category_id)->get();
             if(!empty($product)){
@@ -52,8 +50,5 @@ class ApiCategoryController extends Controller
         }
 
     }
-
-
-
 
 }

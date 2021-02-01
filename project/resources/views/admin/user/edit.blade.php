@@ -80,7 +80,6 @@
 													</div>
 												</div>
 
-
 												<div class="row">
 													<div class="col-lg-4">
 														<div class="left-area">
@@ -88,7 +87,7 @@
 														</div>
 													</div>
 													<div class="col-lg-7">
-														<input type="text" class="input-field" name="phone" placeholder="{{ __("City") }}" value="{{ $data->phone }}">
+														<input type="text" class="input-field" name="city" placeholder="{{ __("City") }}" value="{{ $data->city }}">
 													</div>
 												</div>
 

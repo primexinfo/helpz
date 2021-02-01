@@ -614,9 +614,6 @@ class CheckoutController extends Controller
         Session::forget('coupon_percentage');
 
 
-
-
-
         //Sending Email To Buyer
         if($gs->is_smtp == 1)
         {
