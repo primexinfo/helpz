@@ -404,6 +404,10 @@
 							</a>
 							<ul class="collapse list-unstyled" id="homepage" data-parent="#accordion">
 								<li>
+									<a href="{{ route('admin-sb-landing') }}"><span>{{ __('Landing Banners') }}</span></a>
+								</li>
+								<li>
+								<li>
 									<a href="{{ route('admin-sl-index') }}"><span>{{ __('Sliders') }}</span></a>
 								</li>
 								<li>
@@ -569,24 +573,11 @@
 									class="fas fa-users-cog mr-2"></i>{{ __('Subscribers') }}</a>
 						</li>
 
-						<li>
-							<a href="#sactive" class="accordion-toggle wave-effect" data-toggle="collapse"
-								aria-expanded="false">
-								<i class="fas fa-cog"></i>{{ __('System Activation') }}
-							</a>
-							<ul class="collapse list-unstyled" id="sactive" data-parent="#accordion">
-
-								<li><a href="{{route('admin-activation-form')}}"> {{ __('Activation') }}</a></li>
-								<li><a href="{{route('admin-generate-backup')}}"> {{ __('Generate Backup') }}</a></li>
-							</ul>
-						</li>
-
 						@endif
-
 
 					</ul>
 
-					<p class="version-name"> Version: 1.2</p>
+					
 				</nav>
 				<!-- Main Content Area Start -->
 				@yield('content')

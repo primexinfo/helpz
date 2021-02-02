@@ -93,7 +93,7 @@ class PaystackController extends Controller
         $order['cart'] = utf8_encode(bzcompress(serialize($cart), 9)); 
         $order['totalQty'] = $request->totalQty;
         $order['pay_amount'] = round($request->total / $curr->value, 2)  + $request->shipping_cost + $request->packing_cost;
-        $order['method'] = $request->method;
+        //$order['method'] = $request->method;
         $order['shipping'] = $request->shipping;
         $order['pickup_location'] = $request->pickup_location;
         $order['customer_email'] = $request->email;

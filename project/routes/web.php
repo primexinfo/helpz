@@ -339,9 +339,11 @@ Route::prefix('admin')->group(function() {
   Route::get('/banner/datatables/{type}', 'Admin\BannerController@datatables')->name('admin-sb-datatables'); //JSON REQUEST
   Route::get('top/small/banner/', 'Admin\BannerController@index')->name('admin-sb-index');
   Route::get('large/banner/', 'Admin\BannerController@large')->name('admin-sb-large');
+  Route::get('landing/banner/', 'Admin\BannerController@landing')->name('admin-sb-landing');
   Route::get('bottom/small/banner/', 'Admin\BannerController@bottom')->name('admin-sb-bottom');
   Route::get('top/small/banner/create', 'Admin\BannerController@create')->name('admin-sb-create');
   Route::get('large/banner/create', 'Admin\BannerController@largecreate')->name('admin-sb-create-large');
+  Route::get('landing/banner/create', 'Admin\BannerController@landingcreate')->name('admin-sb-create-landing');
   Route::get('bottom/small/banner/create', 'Admin\BannerController@bottomcreate')->name('admin-sb-create-bottom');
 
 
@@ -706,7 +708,7 @@ Route::prefix('user')->group(function() {
   // User Register
   Route::get('/register', 'User\RegisterController@showRegisterForm')->name('user-register');
   Route::post('/register', 'User\RegisterController@register')->name('user-register-submit');
-  Route::get('/register/verify/{token}', 'User\RegisterController@token')->name('user-register-token');  
+  Route::get('/register/verify/{token}', 'User\RegisterController@token')->name('user-register-token');
   // User Register End
 
   // User Reset 

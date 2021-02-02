@@ -40,6 +40,11 @@ class BannerController extends Controller
     }
 
     //*** GET Request
+    public function landing()
+    {
+        return view('admin.banner.landing');
+    }
+    //*** GET Request
     public function large()
     {
         return view('admin.banner.large');
@@ -61,6 +66,11 @@ class BannerController extends Controller
     public function largecreate()
     {
         return view('admin.banner.largecreate');
+    }
+    //*** GET Request
+    public function landingcreate()
+    {
+        return view('admin.banner.landingcreate');
     }
 
     //*** GET Request

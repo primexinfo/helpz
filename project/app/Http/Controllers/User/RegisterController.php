@@ -179,7 +179,7 @@ class RegisterController extends Controller
 
     }
 
-    public function registerOtp(Request $request){;
+    public function registerOtp(Request $request){
         $registration_info = Otp::where('phone',$request->phone)
                                 ->where('otp',$request->otp)->latest()->first();
         if($registration_info){
@@ -193,6 +193,7 @@ class RegisterController extends Controller
             $user -> verification_link = $token;
             $user -> affilate_code = md5($registration_info->name.$registration_info->email);;
             $user->save();
+
 
             //delete unregistered data
             $delete_datas = Otp::where('phone',$registration_info->phone)->get();
@@ -210,7 +211,7 @@ class RegisterController extends Controller
             $notification->user_id = $user->id;
             $notification->save();
             Auth::guard('web')->login($user);
-            return response()->json('success');
+            return response()->json($registration_info);
         }
         else{
             return response()->json('failed');

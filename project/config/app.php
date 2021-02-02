@@ -181,7 +181,8 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,    
         Intervention\Image\ImageServiceProvider::class,
         Srmklive\PayPal\Providers\PayPalServiceProvider::class,
-        Barryvdh\DomPDF\ServiceProvider::class
+        Barryvdh\DomPDF\ServiceProvider::class,
+
     ],
 
     /*

@@ -33,3 +33,6 @@ Route::post('resend-otp', 'User\RegisterController@resendOtp');
 Route::post('login', 'User\LoginController@login');
 
 Route::post('product/cat/sub/child', 'Api\ApiCategoryController@productAscategories');
+
+//---order
+Route::post('order/store', 'Api\ApiOrderController@store');

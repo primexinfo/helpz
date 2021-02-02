@@ -209,6 +209,7 @@ class OrderController extends Controller
     }
     public function emailsub(Request $request)
     {
+        //return response()->json('ok');
         $gs = Generalsetting::findOrFail(1);
         if($gs->is_smtp == 1)
         {
@@ -219,14 +220,14 @@ class OrderController extends Controller
             ];
 
             $mailer = new GeniusMailer();
-            $mailer->sendCustomMail($data);                
+            $mailer->sendCustomMail($data);
         }
         else
         {
             $data = 0;
             $headers = "From: ".$gs->from_name."<".$gs->from_email.">";
             $mail = mail($request->to,$request->subject,$request->message,$headers);
-            if($mail) {   
+            if($mail) {
                 $data = 1;
             }
         }
@@ -259,15 +260,17 @@ class OrderController extends Controller
     }
 
     public function ManageOrder(){
-        //$orders = Order::whereDate('created_at', '=', Carbon::today()->toDateString())->get();
-        $orders = Order::all();
-        foreach ($orders as $order){
-            $cart = unserialize(bzdecompress(utf8_decode($order->cart)));
-            dd($order->cart);
-        }
+        $orders = Order::whereDate('created_at', '=', Carbon::today()->toDateString())->get();
+        $orders = Order::first();
+        $cart = unserialize(bzdecompress(utf8_decode($orders->cart)));
 
-
-        dd($cart->items);
+//        foreach ($orders as $order){
+//            $cart = unserialize(bzdecompress(utf8_decode($order->cart)));
+//            dd($order->cart);
+//        }
+//
+//
+//        dd($cart->items);
         $categories = Category::with('subs','subs.childs')->get();
         $porducts = Product::get();
         return view('admin.order.manageorder',compact('categories','porducts','orders'));
